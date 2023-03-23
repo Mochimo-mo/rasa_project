@@ -1,0 +1,88 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - GetInfo
+
+entities:
+  - name
+  - team
+  - leaguePosition
+
+slots:
+  name:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: name
+      intent: greet
+  team:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: team
+      intent: GetInfo
+#  lastOpponent:
+#    type: text
+#    mappings:
+#    - type: custom
+#      action: action_calculate_day_of_week
+#  lastScore:
+#    type: text
+#    mappings:
+#    - type: custom
+#      action: action_calculate_day_of_week
+  leaguePosition:
+    type: text
+    mappings:
+    - type: custom
+      action: action_get_leaguePosition
+  manager:
+    type: text
+    mappings:
+    - type: custom
+      action: action_get_manager
+  winLossRecord:
+    type: text
+    mappings:
+    - type: custom
+      action: action_get_winLossRecord
+
+
+actions:
+  - action_get_leaguePosition
+  - action_get_manager
+  - action_get_winLossRecord
+
+responses:
+  utter_greet:
+  - text: "Hey ! How are you?"
+  - text: "Hi! How can I help you?"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
